@@ -1,0 +1,85 @@
+{% extends "base.j2" %}
+{% block title %}Exercices - serie {{serie}} {% endblock %}
+
+{% block content %}
+
+<div id="content" class="container pt-4">
+
+<h1>Exercices représentation de l'information</h1>
+<p>Passer le doigt ou la souris sur la ligne d'un exercice pour voir la solution</p>
+<br>
+
+<h5>1. Convertir les nombres décimaux vers le binaire</h5>
+Utiliser la grille de conversion décimal <-> binaire
+<ul class="list-group list-group-flush w-50 offset-1">
+{% for n in exercices.dec2bin %}
+<li class="list-group-item text-end" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" bg-primary data-bs-title="{{n | bin}}">{{n}}</li>
+{% endfor %}
+</ul>
+
+<br>
+<h5>2. Convertir les nombres binaires vers le décimal</h5>
+Utiliser la grille de conversion décimal <-> binaire
+<ul class="list-group list-group-flush w-50 offset-1">
+{% for n in exercices.bin2dec %}
+<li class="list-group-item text-end" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" data-bs-title="{{n}}">{{n | bin }}</li>
+{% endfor %}
+</ul>
+
+<br>
+<h5>3. Effectuer les additions binaires en colonnes</h5>
+Vérifier les calculs en passant par le décimal
+<ul class="list-group list-group-flush w-50 offset-1">
+{% for a, b in exercices.addition %}
+<li class="list-group-item text-end" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" data-bs-title="{{ (a + b) | bin}} <br/> ({{a}} + {{b}} = {{a + b}})">{{a | bin }} + {{b | bin}}</li>
+{% endfor %}
+</ul>
+
+<br>
+<h5>4. Effectuer les multiplications binaires par décalage de bits</h5>
+Vérifier les calculs en passant par le décimal (à moins que le résultat ne soit trop grand)
+<ul class="list-group list-group-flush w-50 offset-1">
+{% for a, b in exercices.shift_multiplication %}
+<li class="list-group-item text-end" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" data-bs-title="{{ (a * b) | bin}} <br/> ({{a}} * {{b}} = {{a * b}})">{{a | bin }} x {{b}}</li>
+{% endfor %}
+</ul>
+
+<br>
+<h5>5. Effectuer les multiplications binaires en colonnes</h5>
+Vérifier les calculs en passant par le décimal (à moins que le résultat ne soit trop grand)
+<ul class="list-group list-group-flush w-50 offset-1">
+{% for a, b in exercices.multiplication %}
+<li class="list-group-item text-end" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" data-bs-title="{{ (a * b) | bin}} <br> ({{a}} * {{b}} = {{a * b}})">{{a | bin }} x {{b | bin}}</li>
+{% endfor %}
+</ul>
+
+<br>
+<h5>6. Effectuer les divisions binaires entières par décalage de bits</h5>
+Vérifier les calculs en passant par le décimal
+<ul class="list-group list-group-flush w-50 offset-1">
+{% for a, b in exercices.shift_division %}
+<li class="list-group-item text-end" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" data-bs-title="{{ (a // b) | bin}} <br/> ({{a}} / {{b}} = {{ a // b}})">{{a | bin }} / {{b}}</li>
+{% endfor %}
+</ul>
+
+<br>
+<h5>7. Convertir les nombres décimaux vers l'hexadécimal</h5>
+<ul class="list-group list-group-flush w-50 offset-1">
+{% for n in exercices.dec2hex %}
+<li class="list-group-item text-end" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" data-bs-title="{{n | hex}}">{{n}}</li>
+{% endfor %}
+</ul>
+
+<br>
+<h5>8. Convertir les nombres hexadécimaux vers le décimal</h5>
+<ul class="list-group list-group-flush w-50 offset-1">
+{% for n in exercices.hex2dec %}
+<li class="list-group-item text-end" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" data-bs-title="{{n}}">{{n | hex }}</li>
+{% endfor %}
+</ul> 
+
+<hr>
+<p>Série {{serie}}.  <a class="link-primary" href="/">Nouvelle série</a></p>
+
+</div>
+{% endblock %}
