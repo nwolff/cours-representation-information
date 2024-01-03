@@ -2,34 +2,34 @@ Deployed automatically to:
 
 https://nwolff.github.io/cours-representation-information/
 
-## Developing
+---
 
-Installing dependencies:
+Requires elm0.19.1
 
-    npm install
+To install elm without being a sudoer:
 
-Running the app under development, with automatic reload:
+    npm install elm
 
-    npm run dev -- --open
+To develop:
 
-Formatting:
+    elm reactor
 
-    npm run format
+Or if you've installed elm-live:
 
-Type-checking:
+    elm-live src/Main.elm --open -- --output target/elm.js --debug
 
-    npm run check
+To build:
 
-Verifying the production build:
+    elm make src/Main.elm --output target/elm.js
 
-When building for prod, svelte tries to render server-side as much as possible to make
-pages appear rapidly. A lot of our routes can only run in the browser and we disable
-server-side-rendering for those.
-This step makes sure we haven't forgotten anything.
+To test you need to install elm-test, then:
 
-    npm run build
-    npm run preview -- --open
+    elm-test
 
-Deploying to GitHub pages:
+To review the code you need to install elm-review, then:
 
-Automatically triggered by a push to the main branch
+    elm-review --template jfmengels/elm-review-config/application
+
+Deployed automatically upon push to main:
+
+Using https://github.com/isaacvando/elm-to-gh-pages
