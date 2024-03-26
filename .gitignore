@@ -1,0 +1,22 @@
+# IDEs
+*.iml
+.idea/
+.vscode/
+
+# npm
+package.json
+package-lock.json
+node_modules/
+
+# Elm
+elm-stuff/
+elm.js
+repl-temp-*
+
+# Elm-spa
+.elm-spa/
+dist
+
+# Our build setup
+target/
+
