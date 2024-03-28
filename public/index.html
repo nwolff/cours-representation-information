@@ -23,6 +23,20 @@
       data-website-id="e99cbf71-f7c3-4e75-9949-da2930855cb6"
     ></script>
 
+    <script>
+      //
+      // From https://stackoverflow.com/questions/76115927/page-not-found-react-vite-app-not-routing-correctly-on-github-pages
+      // Works together with the 404.html page
+      //
+      (() => {
+        const redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
+
     <script type="text/javascript" src="dist/elm.js"></script>
   </head>
   <body>
