@@ -21,3 +21,7 @@ Usage statistics collected with umami.js
 ## Building for production
 
     npx elm-spa build
+
+## Finding outdated packages
+
+    npx elm-json upgrade
