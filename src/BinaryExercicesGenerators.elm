@@ -1,80 +1,85 @@
 module BinaryExercicesGenerators exposing (ExercisesData, exercicesData)
 
-import Random exposing (Generator, constant, int, map, map2, pair)
-import Random.Extra exposing (andMap, sequence)
-import Random.List exposing (shuffle)
+import Random
+import Random.Extra exposing (andMap)
+import Random.List
 
 
-xxs : Generator Int
+xxs : Random.Generator Int
 xxs =
-    int 3 5
+    Random.int 3 5
 
 
-xs : Generator Int
+xs : Random.Generator Int
 xs =
-    int 5 8
+    Random.int 5 8
 
 
-s : Generator Int
+s : Random.Generator Int
 s =
-    int 8 16
+    Random.int 8 16
 
 
-m : Generator Int
+m : Random.Generator Int
 m =
-    int 16 128
+    Random.int 16 128
 
 
-l : Generator Int
+l : Random.Generator Int
 l =
-    int 128 256
+    Random.int 128 256
 
 
-xl : Generator Int
+xl : Random.Generator Int
 xl =
-    int 256 512
+    Random.int 256 512
 
 
-conversionNumbers : Generator (List Int)
+conversionNumbers : Random.Generator (List Int)
 conversionNumbers =
-    sequence [ s, l, xl ]
+    Random.Extra.sequence [ s, l, xl ]
 
 
-addition : Generator (List ( Int, Int ))
+negativeConversionNumbers : Random.Generator (List Int)
+negativeConversionNumbers =
+    Random.map (List.map negate) (Random.Extra.sequence [ xs, s, m ])
+
+
+addition : Random.Generator (List ( Int, Int ))
 addition =
-    sequence [ pair s m, pair m l, pair l m ]
+    Random.Extra.sequence [ Random.pair s m, Random.pair m l, Random.pair l m ]
 
 
-multiplication : Generator (List ( Int, Int ))
+multiplication : Random.Generator (List ( Int, Int ))
 multiplication =
-    sequence [ pair s xs, pair m xs, pair xxs xl ]
+    Random.Extra.sequence [ Random.pair s xs, Random.pair m xs, Random.pair xxs xl ]
 
 
-{-| Pulled this off by looking at the types
--}
-zip : Generator (List a) -> Generator (List b) -> Generator (List ( a, b ))
+zip : Random.Generator (List a) -> Random.Generator (List b) -> Random.Generator (List ( a, b ))
 zip gena genb =
-    map2 (List.map2 Tuple.pair) gena genb
+    Random.map2 (List.map2 Tuple.pair) gena genb
 
 
-shiftMultiplication : Generator (List ( Int, Int ))
+shiftMultiplication : Random.Generator (List ( Int, Int ))
 shiftMultiplication =
     zip
-        (constant [ 7, 127, 60 ])
-        (shuffle [ 2, 4, 8 ])
+        (Random.constant [ 7, 127, 60 ])
+        (Random.List.shuffle [ 2, 4, 8 ])
 
 
-shiftDivision : Generator (List ( Int, Int ))
+shiftDivision : Random.Generator (List ( Int, Int ))
 shiftDivision =
     zip
-        (constant [ 5, 85, 240 ])
-        (shuffle [ 2, 4, 8, 16, 32 ])
+        (Random.constant [ 5, 85, 240 ])
+        (Random.List.shuffle [ 2, 4, 8, 16, 32 ])
 
 
 type alias ExercisesData =
     { dec2bin : List Int
     , bin2dec : List Int
     , addition : List ( Int, Int )
+    , dec2bin_neg : List Int
+    , bin2dec_neg : List Int
     , shift_multiplication : List ( Int, Int )
     , multiplication : List ( Int, Int )
     , shift_division : List ( Int, Int )
@@ -83,12 +88,14 @@ type alias ExercisesData =
     }
 
 
-exercicesData : Generator ExercisesData
+exercicesData : Random.Generator ExercisesData
 exercicesData =
-    map ExercisesData
+    Random.map ExercisesData
         conversionNumbers
         |> andMap conversionNumbers
         |> andMap addition
+        |> andMap negativeConversionNumbers
+        |> andMap negativeConversionNumbers
         |> andMap shiftMultiplication
         |> andMap multiplication
         |> andMap shiftDivision

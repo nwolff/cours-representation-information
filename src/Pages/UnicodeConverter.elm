@@ -42,9 +42,11 @@ update msg _ =
     case msg of
         GotHex hex ->
             let
+                hexWithoutSpaces : String
                 hexWithoutSpaces =
                     String.replace " " "" hex
 
+                string : String
                 string =
                     if String.isEmpty hexWithoutSpaces then
                         ""
@@ -61,6 +63,7 @@ update msg _ =
 
         GotString string ->
             let
+                hex : String
                 hex =
                     case String.uncons string of
                         Nothing ->

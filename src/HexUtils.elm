@@ -1,21 +1,50 @@
-module HexUtils exposing (bin, chunk, hex, string)
+module HexUtils exposing (bin, chunk, hex)
 
-import Binary exposing (fromDecimal, toHex, toIntegers)
+import Binary
+import Html exposing (i)
 
 
-bin : Int -> String
-bin n =
-    n |> fromDecimal |> toIntegers |> List.map String.fromInt |> String.concat |> chunk 4 "'"
+one : Binary.Bits
+one =
+    Binary.fromDecimal 1
+
+
+{-| Builds a binary representation of n
+The digitCount is used when n is negative to build a two's complement representation,
+if n is positive then digitCount is ignored
+
+    >>> bin 8 3
+    "11"
+    >>> bin 8 255
+    "1111'1111"
+    >>> bin 8 -9
+    "1111'0111"
+    >>> bin 16 -9
+    "1111'1111'1111'0111"
+
+-}
+bin : Int -> Int -> String
+bin digitCount n =
+    let
+        bits : Binary.Bits
+        bits =
+            if n >= 0 then
+                Binary.fromDecimal n
+
+            else
+                n
+                    |> abs
+                    |> (\x -> x - 1)
+                    |> Binary.fromDecimal
+                    |> Binary.ensureSize digitCount
+                    |> Binary.not
+    in
+    bits |> Binary.toIntegers |> List.map String.fromInt |> String.concat |> chunk 4 "'"
 
 
 hex : Int -> String
 hex n =
-    n |> fromDecimal |> toHex
-
-
-string : Int -> String
-string n =
-    String.fromInt n
+    n |> Binary.fromDecimal |> Binary.toHex
 
 
 {-| Groups characters into groups of size n from the right and inserts sep

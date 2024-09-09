@@ -14,7 +14,12 @@ Usage statistics collected with umami.js
 
     npx elm-test
 
+## Formatting 
+
+    npx elm-format --yes src
+
 ## Reviewing
+Gets a bit confused by elm-spa (which generates code that review cannot see), but gives useful feedback nonetheless
 
     npx elm-review --template jfmengels/elm-review-config/application src tests
 
