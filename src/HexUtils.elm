@@ -1,12 +1,6 @@
 module HexUtils exposing (bin, chunk, hex)
 
 import Binary
-import Html exposing (i)
-
-
-one : Binary.Bits
-one =
-    Binary.fromDecimal 1
 
 
 {-| Builds a binary representation of n

@@ -24,10 +24,10 @@ page _ _ =
 
 
 type QuestionPart
-    = B String
-    | D Int
-    | H String
-    | S String
+    = B String -- Binary
+    | D Int -- Decimal
+    | H String -- Hexadecimal
+    | S String -- String
 
 
 type alias Question =
