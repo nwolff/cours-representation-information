@@ -35,24 +35,39 @@ xl =
     Random.int 256 512
 
 
+neg : Random.Generator number -> Random.Generator number
+neg gen =
+    Random.map negate gen
+
+
 conversionNumbers : Random.Generator (List Int)
 conversionNumbers =
-    Random.Extra.sequence [ s, l, xl ]
+    Random.Extra.sequence
+        [ s, l, xl ]
 
 
 negativeConversionNumbers : Random.Generator (List Int)
 negativeConversionNumbers =
-    Random.map (List.map negate) (Random.Extra.sequence [ xs, s, m ])
+    Random.Extra.sequence
+        [ neg xs, neg s, neg m ]
 
 
 addition : Random.Generator (List ( Int, Int ))
 addition =
-    Random.Extra.sequence [ Random.pair s m, Random.pair m l, Random.pair l m ]
+    Random.Extra.sequence
+        [ Random.pair s m, Random.pair m l, Random.pair l m ]
+
+
+subtraction : Random.Generator (List ( Int, Int ))
+subtraction =
+    Random.Extra.sequence
+        [ Random.pair l (neg m), Random.pair m (neg l), Random.pair (neg m) (neg s) ]
 
 
 multiplication : Random.Generator (List ( Int, Int ))
 multiplication =
-    Random.Extra.sequence [ Random.pair s xs, Random.pair m xs, Random.pair xxs xl ]
+    Random.Extra.sequence
+        [ Random.pair s xs, Random.pair m xs, Random.pair xxs xl ]
 
 
 zip : Random.Generator (List a) -> Random.Generator (List b) -> Random.Generator (List ( a, b ))
@@ -80,6 +95,7 @@ type alias ExercisesData =
     , addition : List ( Int, Int )
     , dec2bin_neg : List Int
     , bin2dec_neg : List Int
+    , subtraction : List ( Int, Int )
     , shift_multiplication : List ( Int, Int )
     , multiplication : List ( Int, Int )
     , shift_division : List ( Int, Int )
@@ -96,6 +112,7 @@ exercicesData =
         |> andMap addition
         |> andMap negativeConversionNumbers
         |> andMap negativeConversionNumbers
+        |> andMap subtraction
         |> andMap shiftMultiplication
         |> andMap multiplication
         |> andMap shiftDivision

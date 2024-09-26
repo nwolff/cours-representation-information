@@ -1,10 +1,10 @@
 module Pages.BinaryExercises exposing (Exercise, Model, Msg(..), Question, page)
 
+import BinHexUtils exposing (bin, hex)
 import BinaryExercicesGenerators exposing (ExercisesData, exercicesData)
 import Gen.Params.BinaryExercises exposing (Params)
-import HexUtils exposing (bin, hex)
-import Html exposing (Html, br, code, div, h1, h5, li, p, span, sub, text, ul)
-import Html.Attributes exposing (attribute, class)
+import Html exposing (Html, a, br, code, div, h1, h5, li, p, span, sub, text, ul)
+import Html.Attributes exposing (class)
 import Page
 import Random
 import Request
@@ -23,16 +23,17 @@ page _ _ =
         }
 
 
-type QuestionPart
-    = B String -- Binary
+type Part
+    = S String -- String
     | D Int -- Decimal
+    | B String -- Binary
     | H String -- Hexadecimal
-    | S String -- String
+    | N -- newline
 
 
 type alias Question =
-    { questionParts : List QuestionPart
-    , answer : String
+    { questionParts : List Part
+    , answerParts : List Part
     }
 
 
@@ -53,54 +54,114 @@ exercicesFromData data =
         "1. Convertir les nombres décimaux vers le binaire"
         "Utiliser la grille de conversion décimal-binaire"
         (data.dec2bin
-            |> List.map (\n -> Question [ D n ] (bin 8 n))
+            |> List.map
+                (\n ->
+                    Question
+                        [ D n ]
+                        [ B (bin 8 n) ]
+                )
         )
     , Exercise "2. Convertir les nombres binaires vers le décimal"
         "Utiliser la grille de conversion décimal-binaire"
         (data.bin2dec
-            |> List.map (\n -> Question [ B (bin 8 n) ] (String.fromInt n))
+            |> List.map
+                (\n ->
+                    Question
+                        [ B (bin 8 n) ]
+                        [ S (String.fromInt n) ]
+                )
         )
     , Exercise "3. Effectuer les additions binaires en colonnes"
         "Vérifier les calculs en passant par le décimal"
         (data.addition
-            |> List.map (\( a, b ) -> Question [ B (bin 8 a), S "+", B (bin 8 b) ] (bin 8 (a + b)))
+            |> List.map
+                (\( a, b ) ->
+                    Question
+                        [ B (bin 8 a), S "+", B (bin 8 b) ]
+                        [ B (bin 8 (a + b)), N, S "Vérification: ", D a, S "+", D b, S "=", D (a + b) ]
+                )
         )
     , Exercise
         "4. Convertir les nombres décimaux négatifs vers le binaire"
         "Representez leur complément à deux sur 8 bits"
         (data.dec2bin_neg
-            |> List.map (\n -> Question [ D n ] (bin 8 n))
+            |> List.map
+                (\n ->
+                    Question
+                        [ D n ]
+                        [ B (bin 8 n) ]
+                )
         )
     , Exercise
         "5. Convertir les nombres binaires négatifs en complément à deux vers le décimal"
         ""
         (data.bin2dec_neg
-            |> List.map (\n -> Question [ B (bin 8 n) ] (String.fromInt n))
+            |> List.map
+                (\n ->
+                    Question
+                        [ B (bin 8 n) ]
+                        [ D n ]
+                )
         )
-    , Exercise "6. Effectuer les multiplications binaires par décalage de bits"
+    , Exercise "6. Effectuer les additions binaires de nombres en complément à 2 sur 8 bits"
+        "Vérifier les calculs en passant par le décimal"
+        (data.subtraction
+            |> List.map
+                (\( a, b ) ->
+                    Question
+                        [ B (bin 8 a), S "+", B (bin 8 b) ]
+                        [ B (bin 8 (a + b)), N, S "Vérification: ", D a, S "+", D b, S "=", D (a + b) ]
+                )
+        )
+    , Exercise "7. Effectuer les multiplications binaires par décalage de bits"
         "Vérifier les calculs en passant par le décimal"
         (data.shift_multiplication
-            |> List.map (\( a, b ) -> Question [ B (bin 8 a), S "*", D b ] (bin 8 (a * b)))
+            |> List.map
+                (\( a, b ) ->
+                    Question
+                        [ B (bin 8 a), S "*", D b ]
+                        [ B (bin 8 (a * b)), N, S "Vérification: ", D a, S "*", D b, S "=", D (a * b) ]
+                )
         )
-    , Exercise "7. Effectuer les multiplications binaires en colonnes"
+    , Exercise "8. Effectuer les multiplications binaires en colonnes"
         "Vérifier les calculs en passant par le décimal"
         (data.multiplication
-            |> List.map (\( a, b ) -> Question [ B (bin 8 a), S "*", B (bin 8 b) ] (bin 8 (a * b)))
+            |> List.map
+                (\( a, b ) ->
+                    Question
+                        [ B (bin 8 a), S "*", B (bin 8 b) ]
+                        [ B (bin 8 (a * b)), N, S "Vérification: ", D a, S "*", D b, S "=", D (a * b) ]
+                )
         )
-    , Exercise "8. Effectuer les divisions binaires entières par décalage de bits"
+    , Exercise "9. Effectuer les divisions binaires entières par décalage de bits"
         "Vérifier les calculs en passant par le décimal"
         (data.shift_division
-            |> List.map (\( a, b ) -> Question [ B (bin 8 a), S "/", D b ] (bin 8 (a // b)))
+            |> List.map
+                (\( a, b ) ->
+                    Question
+                        [ B (bin 8 a), S "/", D b ]
+                        [ B (bin 8 (a // b)), N, S "Vérification: ", D a, S "/", D b, S "=", D (a // b), S "(Reste", D (modBy b a), S ")" ]
+                )
         )
-    , Exercise "9. Convertir les nombres décimaux vers l'hexadécimal"
+    , Exercise "A. Convertir les nombres décimaux vers l'hexadécimal"
         ""
         (data.dec2hex
-            |> List.map (\n -> Question [ D n ] (hex n))
+            |> List.map
+                (\n ->
+                    Question
+                        [ D n ]
+                        [ H (hex n) ]
+                )
         )
-    , Exercise "A. Convertir les nombres hexadécimaux vers le décimal"
+    , Exercise "B. Convertir les nombres hexadécimaux vers le décimal"
         ""
         (data.hex2dec
-            |> List.map (\n -> Question [ H (hex n) ] (String.fromInt n))
+            |> List.map
+                (\n ->
+                    Question
+                        [ H (hex n) ]
+                        [ D n ]
+                )
         )
     ]
 
@@ -157,7 +218,7 @@ viewExercise exercise =
         [ h5 [] [ text exercise.title ]
         , text exercise.description
         , br [] []
-        , ul [ class "list-group list-group-flush w-50 offset-1" ]
+        , ul [ class "list-group list-group-flush w-50" ]
             (List.map viewQuestion exercise.questions)
         , br [] []
         ]
@@ -166,24 +227,27 @@ viewExercise exercise =
 viewQuestion : Question -> Html Msg
 viewQuestion question =
     li
-        [ class "list-group-item text-end"
-        , attribute "tooltip" question.answer
-        , attribute "tooltip-position" "right"
-        ]
-        [ span
-            []
-            (List.map viewQuestionPart question.questionParts)
+        [ class "list-group-item" ]
+        [ div []
+            [ div [ class "question" ]
+                (List.map viewPart question.questionParts)
+            , div [ class "answer" ]
+                (List.map viewPart question.answerParts)
+            ]
         ]
 
 
-viewQuestionPart : QuestionPart -> Html Msg
-viewQuestionPart part =
+viewPart : Part -> Html Msg
+viewPart part =
     case part of
-        B bin ->
-            code [] [ text bin ]
-
         S s ->
             text (" " ++ s ++ " ")
+
+        D decimal ->
+            text (String.fromInt decimal)
+
+        B bin ->
+            code [] [ text bin ]
 
         H hex ->
             span []
@@ -193,5 +257,5 @@ viewQuestionPart part =
                     [ text "16" ]
                 ]
 
-        D decimal ->
-            text (String.fromInt decimal)
+        N ->
+            text "\u{00A0}\u{00A0}\u{00A0}\u{00A0}\u{00A0}\u{00A0}"

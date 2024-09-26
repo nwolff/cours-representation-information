@@ -1,4 +1,4 @@
-module HexUtils exposing (bin, chunk, hex)
+module BinHexUtils exposing (bin, chunk, hex)
 
 import Binary
 

@@ -1,7 +1,7 @@
-module HexUtilsTest exposing (binTests, chunkTests)
+module BinHexUtilsTest exposing (binTests, chunkTests)
 
 import Expect
-import HexUtils exposing (chunk, bin)
+import BinHexUtils exposing (chunk, bin)
 import Test exposing (Test, describe, test)
 
 
