@@ -26,7 +26,7 @@ layout children =
                 [ a
                     [ class "navbar-brand", href (Route.toHref Route.Home_) ]
                     [ img [ src "assets/brand.png", width 30, height 30 ] [] ]
-                , viewLink "Exercices calculs binaires" Route.BinaryExercises
+                , viewLink "Exercices binaire + hexadécimal" Route.BinaryExercises
                 , viewLink "Convertisseur Unicode" Route.UnicodeConverter
                 ]
             ]

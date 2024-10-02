@@ -199,11 +199,11 @@ view model =
             { title = "Loading", body = UI.layout [] }
 
         Just exercises ->
-            { title = "Exercices calculs binaires"
+            { title = "Exercices binaire + hexadécimal"
             , body =
                 UI.layout
                     (List.append
-                        [ h1 [] [ text "Exercices calculs binaires" ]
+                        [ h1 [] [ text "Exercices binaire + hexadécimal" ]
                         , p [] [ text "Passer le doigt ou la souris sur la ligne d'un exercice pour voir la solution" ]
                         , br [] []
                         ]
