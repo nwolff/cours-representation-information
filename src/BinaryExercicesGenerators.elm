@@ -7,32 +7,32 @@ import Random.List
 
 xxs : Random.Generator Int
 xxs =
-    Random.int 3 5
+    Random.int 3 4
 
 
 xs : Random.Generator Int
 xs =
-    Random.int 5 8
+    Random.int 5 7
 
 
 s : Random.Generator Int
 s =
-    Random.int 8 16
+    Random.int 8 15
 
 
 m : Random.Generator Int
 m =
-    Random.int 16 128
+    Random.int 16 127
 
 
 l : Random.Generator Int
 l =
-    Random.int 128 256
+    Random.int 128 255
 
 
 xl : Random.Generator Int
 xl =
-    Random.int 256 512
+    Random.int 256 511
 
 
 neg : Random.Generator number -> Random.Generator number
@@ -61,7 +61,7 @@ addition =
 additionRelative : Random.Generator (List ( Int, Int ))
 additionRelative =
     Random.Extra.sequence
-        [ Random.pair l (neg m), Random.pair m (neg l), Random.pair (neg m) (neg s) ]
+        [ Random.pair m (neg m), Random.pair m (neg m), Random.pair (neg s) (neg s) ]
 
 
 multiplication : Random.Generator (List ( Int, Int ))

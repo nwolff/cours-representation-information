@@ -103,7 +103,7 @@ exercicesFromData data =
                         [ D n ]
                 )
         )
-    , Exercise "6. Effectuer les additions binaires de nombres en complément à 2 sur 8 bits"
+    , Exercise "6. Effectuer les additions binaires de nombres relatifs en complément à 2 sur 8 bits"
         "Vérifier les calculs en passant par le décimal"
         (data.additionRelative
             |> List.map
