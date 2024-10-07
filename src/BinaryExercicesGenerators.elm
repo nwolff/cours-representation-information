@@ -58,8 +58,8 @@ addition =
         [ Random.pair s m, Random.pair m l, Random.pair l m ]
 
 
-subtraction : Random.Generator (List ( Int, Int ))
-subtraction =
+additionRelative : Random.Generator (List ( Int, Int ))
+additionRelative =
     Random.Extra.sequence
         [ Random.pair l (neg m), Random.pair m (neg l), Random.pair (neg m) (neg s) ]
 
@@ -93,12 +93,12 @@ type alias ExercisesData =
     { dec2bin : List Int
     , bin2dec : List Int
     , addition : List ( Int, Int )
-    , dec2bin_neg : List Int
-    , bin2dec_neg : List Int
-    , subtraction : List ( Int, Int )
-    , shift_multiplication : List ( Int, Int )
+    , dec2binNeg : List Int
+    , bin2decNeg : List Int
+    , additionRelative : List ( Int, Int )
+    , shiftMultiplication : List ( Int, Int )
     , multiplication : List ( Int, Int )
-    , shift_division : List ( Int, Int )
+    , shiftDivision : List ( Int, Int )
     , dec2hex : List Int
     , hex2dec : List Int
     }
@@ -112,7 +112,7 @@ exercicesData =
         |> andMap addition
         |> andMap negativeConversionNumbers
         |> andMap negativeConversionNumbers
-        |> andMap subtraction
+        |> andMap additionRelative
         |> andMap shiftMultiplication
         |> andMap multiplication
         |> andMap shiftDivision

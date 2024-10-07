@@ -84,7 +84,7 @@ exercicesFromData data =
     , Exercise
         "4. Convertir les nombres décimaux négatifs vers le binaire"
         "Representez leur complément à deux sur 8 bits"
-        (data.dec2bin_neg
+        (data.dec2binNeg
             |> List.map
                 (\n ->
                     Question
@@ -95,7 +95,7 @@ exercicesFromData data =
     , Exercise
         "5. Convertir les nombres binaires négatifs en complément à deux vers le décimal"
         ""
-        (data.bin2dec_neg
+        (data.bin2decNeg
             |> List.map
                 (\n ->
                     Question
@@ -105,7 +105,7 @@ exercicesFromData data =
         )
     , Exercise "6. Effectuer les additions binaires de nombres en complément à 2 sur 8 bits"
         "Vérifier les calculs en passant par le décimal"
-        (data.subtraction
+        (data.additionRelative
             |> List.map
                 (\( a, b ) ->
                     Question
@@ -115,7 +115,7 @@ exercicesFromData data =
         )
     , Exercise "7. Effectuer les multiplications binaires par décalage de bits"
         "Vérifier les calculs en passant par le décimal"
-        (data.shift_multiplication
+        (data.shiftMultiplication
             |> List.map
                 (\( a, b ) ->
                     Question
@@ -135,7 +135,7 @@ exercicesFromData data =
         )
     , Exercise "9. Effectuer les divisions binaires entières par décalage de bits"
         "Vérifier les calculs en passant par le décimal"
-        (data.shift_division
+        (data.shiftDivision
             |> List.map
                 (\( a, b ) ->
                     Question
