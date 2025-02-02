@@ -2,7 +2,7 @@ module Pages.UnicodeConverter exposing (Model, Msg, page)
 
 import Gen.Params.UnicodeConverter exposing (Params)
 import Hex
-import Html exposing (div, h1, input, label, text)
+import Html exposing (div, h2, input, label, text)
 import Html.Attributes exposing (class, for, id, value)
 import Html.Events exposing (onInput)
 import Page
@@ -80,10 +80,10 @@ view model =
     { title = "Convertisseur unicode"
     , body =
         UI.layout
-            [ h1 [] [ text "Convertisseur unicode" ]
+            [ h2 [] [ text "Convertir un caractère unicode" ]
             , div [ class "my-3" ]
                 [ label [ for "hex", class "form-label" ]
-                    [ text "Numéro (hexadécimal)" ]
+                    [ text "Numéro du caractère (en hexadécimal)" ]
                 , div []
                     [ input [ id "hex", value model.hex, onInput GotHex, class "form-control form-control-lg" ] [] ]
                 ]

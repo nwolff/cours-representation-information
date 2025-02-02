@@ -2,7 +2,7 @@ module UI exposing (layout)
 
 import Gen.Route as Route exposing (Route)
 import Html exposing (Html, a, div, img, nav, text, ul)
-import Html.Attributes exposing (class, height, href, src, width)
+import Html.Attributes exposing (class, height, href, src, style, width)
 
 
 {-| How I built the bootstrap navbar
@@ -19,7 +19,7 @@ layout children =
             a [ class "nav-item nav-link", href (Route.toHref route) ] [ text label ]
     in
     [ nav
-        [ class "navbar navbar-expand-sm bg-dark navbar-dark" ]
+        [ class "navbar navbar-expand-sm", style "background-color" "#e3f2fd" ]
         [ div
             [ class "container-fluid" ]
             [ ul [ class "navbar-nav" ]
