@@ -2,9 +2,9 @@ module Pages.UnicodeConverter exposing (Model, Msg, page)
 
 import Gen.Params.UnicodeConverter exposing (Params)
 import Hex
-import Html exposing (div, h2, input, label, text)
-import Html.Attributes exposing (class, for, id, value)
-import Html.Events exposing (onInput)
+import Html.Styled exposing (div, h2, input, label, text)
+import Html.Styled.Attributes exposing (class, for, id, value)
+import Html.Styled.Events exposing (onInput)
 import Page
 import Request
 import Shared

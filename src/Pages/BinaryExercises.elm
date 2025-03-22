@@ -3,8 +3,8 @@ module Pages.BinaryExercises exposing (Exercise, Model, Msg(..), Question, page)
 import BinHexUtils exposing (bin, hex)
 import BinaryExercicesGenerators exposing (ExercisesData, exercicesData)
 import Gen.Params.BinaryExercises exposing (Params)
-import Html exposing (Html, a, br, code, div, h1, h5, li, p, span, sub, text, ul)
-import Html.Attributes exposing (class)
+import Html.Styled exposing (Html, a, br, code, div, h1, h5, li, p, span, sub, text, ul)
+import Html.Styled.Attributes exposing (class)
 import Page
 import Random
 import Request

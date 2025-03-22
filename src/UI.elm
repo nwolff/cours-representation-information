@@ -1,8 +1,8 @@
 module UI exposing (layout)
 
 import Gen.Route as Route exposing (Route)
-import Html exposing (Html, a, div, img, nav, text, ul)
-import Html.Attributes exposing (class, height, href, src, style, width)
+import Html.Styled exposing (Html, a, div, img, main_, nav, text, ul)
+import Html.Styled.Attributes exposing (class, height, href, src, style, width)
 
 
 {-| How I built the bootstrap navbar
@@ -33,5 +33,5 @@ layout children =
             ]
         ]
     , div [ class "container pt-4" ]
-        [ Html.main_ [] children ]
+        [ main_ [] children ]
     ]
