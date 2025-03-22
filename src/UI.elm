@@ -28,6 +28,7 @@ layout children =
                     [ img [ src "assets/brand.png", width 30, height 30 ] [] ]
                 , viewLink "Exercices binaire + hexadécimal" Route.BinaryExercises
                 , viewLink "Convertisseur Unicode" Route.UnicodeConverter
+                , viewLink "RBG" Route.RGBSlider
                 ]
             ]
         ]
