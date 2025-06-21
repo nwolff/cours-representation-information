@@ -1,18 +1,15 @@
 module Pages.RGBSlider exposing (Model, Msg, page)
 
-import Gen.Params.UnicodeConverter exposing (Params)
-import Html exposing (Html, div, input, label, text)
+import Html exposing (Html, div, input, text)
 import Html.Attributes exposing (style, type_, value)
 import Html.Events exposing (onInput)
 import Maybe exposing (withDefault)
-import Page
-import Request
-import Shared
+import Page exposing (Page)
 import View exposing (View)
 
 
-page : Shared.Model -> Request.With Params -> Page.With Model Msg
-page _ _ =
+page : Page Model Msg
+page =
     Page.sandbox
         { init = init
         , update = update
@@ -29,6 +26,10 @@ type alias Model =
     , green : Int
     , blue : Int
     }
+
+
+
+-- INIT
 
 
 init : Model

@@ -1,24 +1,35 @@
 module Pages.UnicodeConverter exposing (Model, Msg, page)
 
-import Gen.Params.UnicodeConverter exposing (Params)
+import Effect exposing (Effect)
 import Hex
 import Html exposing (div, h2, input, label, text)
 import Html.Attributes exposing (class, for, id, value)
 import Html.Events exposing (onInput)
-import Page
-import Request
+import Layouts
+import Page exposing (Page)
+import Route exposing (Route)
 import Shared
-import UI
 import View exposing (View)
 
 
-page : Shared.Model -> Request.With Params -> Page.With Model Msg
+page : Shared.Model -> Route () -> Page Model Msg
 page _ _ =
-    Page.sandbox
-        { init = init
-        , update = update
+    Page.new
+        { init = \() -> ( init, Effect.none )
+        , update = \msg model -> ( update msg model, Effect.none )
         , view = view
+        , subscriptions = \_ -> Sub.none
         }
+        |> Page.withLayout toLayout
+
+
+toLayout : Model -> Layouts.Layout Msg
+toLayout _ =
+    Layouts.Default {}
+
+
+
+-- MODEL
 
 
 type alias Model =
@@ -27,9 +38,17 @@ type alias Model =
     }
 
 
+
+-- INIT
+
+
 init : Model
 init =
     Model "" ""
+
+
+
+-- UPDATE
 
 
 type Msg
@@ -75,23 +94,26 @@ update msg _ =
             Model hex string
 
 
+
+-- VIEW
+
+
 view : Model -> View Msg
 view model =
     { title = "Convertisseur unicode"
     , body =
-        UI.layout
-            [ h2 [] [ text "Convertir un caractère unicode" ]
-            , div [ class "my-3" ]
-                [ label [ for "hex", class "form-label" ]
-                    [ text "Numéro du caractère (en hexadécimal)" ]
-                , div []
-                    [ input [ id "hex", value model.hex, onInput GotHex, class "form-control form-control-lg" ] [] ]
-                ]
-            , div [ class "my-3" ]
-                [ label [ for "string", class "form-label" ]
-                    [ text "Caractère" ]
-                , div []
-                    [ input [ id "string", value model.string, onInput GotString, class "form-control form-control-lg" ] [] ]
-                ]
+        [ h2 [] [ text "Convertir un caractère unicode" ]
+        , div [ class "my-3" ]
+            [ label [ for "hex", class "form-label" ]
+                [ text "Numéro du caractère (en hexadécimal)" ]
+            , div []
+                [ input [ id "hex", value model.hex, onInput GotHex, class "form-control form-control-lg" ] [] ]
             ]
+        , div [ class "my-3" ]
+            [ label [ for "string", class "form-label" ]
+                [ text "Caractère" ]
+            , div []
+                [ input [ id "string", value model.string, onInput GotString, class "form-control form-control-lg" ] [] ]
+            ]
+        ]
     }

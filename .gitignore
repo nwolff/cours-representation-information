@@ -3,8 +3,10 @@
 .idea/
 .vscode/
 
+# mac
+.DS_Store
+
 # npm
-package.json
 package-lock.json
 node_modules/
 
@@ -13,8 +15,8 @@ elm-stuff/
 elm.js
 repl-temp-*
 
-# Elm-spa
-.elm-spa/
+# Elm-land
+.elm-land/
 dist
 
 # Our build setup

@@ -35,11 +35,12 @@ jobs:
         uses: jorelali/setup-elm@v5
         with:
           elm-version: 0.19.1
-      - run: |
-          npm install elm-spa elm-test
 
-      - name: Build elm spa
-        run: npx elm-spa build
+      - run: |
+          npm install elm-land elm-test
+
+      - name: Build elm land app
+        run: npx elm-land build
 
       # Tests need to come after the build, otherwise
       # it complains about missing .elm-spa directories
@@ -52,7 +53,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "public"
+          path: "dist"
 
       - name: Deploy to GitHub Pages
         id: deployment

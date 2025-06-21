@@ -1,0 +1,40 @@
+{
+  "app": {
+    "elm": {
+      "development": { "debugger": true },
+      "production": { "debugger": false }
+    },
+    "env": [],
+    "html": {
+      "attributes": {
+        "html": { "lang": "fr" },
+        "head": {}
+      },
+      "title": "Cours représentation information",
+      "meta": [
+        { "charset": "UTF-8" },
+        { "http-equiv": "X-UA-Compatible", "content": "IE=edge" },
+        {
+          "name": "viewport",
+          "content": "width=device-width, initial-scale=1.0"
+        }
+      ],
+      "link": [
+        { "rel": "icon", "href": "/assets/favicon.ico" },
+        { "rel": "stylesheet", "href": "/assets/bootstrap.min.css" },
+        { "rel": "stylesheet", "href": "/assets/style.css" }
+      ],
+      "script": [
+        {
+          "src": "https://eu.umami.is/script.js",
+          "data-website-id": "e99cbf71-f7c3-4e75-9949-da2930855cb6",
+          "defer": ""
+        }
+      ]
+    },
+    "router": {
+      "useHashRouting": false
+    },
+    "proxy": null
+  }
+}

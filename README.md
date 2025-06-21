@@ -8,24 +8,25 @@ Usage statistics collected with umami.js
 
 ## Start a live dev server
 
-    npx elm-spa server
+    npx elm-land server
 
 ## Running unit tests
 
     npx elm-test
 
-## Formatting 
+## Formatting
 
     npx elm-format --yes src
 
 ## Reviewing
-Gets a bit confused by elm-spa (which generates code that review cannot see), but gives useful feedback nonetheless
+
+Gets a bit confused by elm-land (which generates code that review cannot see), but gives useful feedback nonetheless
 
     npx elm-review --template jfmengels/elm-review-config/application src tests
 
 ## Building for production
 
-    npx elm-spa build
+    npx elm-land build
 
 ## Finding outdated packages
 

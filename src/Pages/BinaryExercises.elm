@@ -1,26 +1,36 @@
-module Pages.BinaryExercises exposing (Exercise, Model, Msg(..), Question, page)
+module Pages.BinaryExercises exposing (Exercise, Model, Msg(..), Part, Question, page)
 
 import BinHexUtils exposing (bin, hex)
 import BinaryExercicesGenerators exposing (ExercisesData, exercicesData)
-import Gen.Params.BinaryExercises exposing (Params)
-import Html exposing (Html, a, br, code, div, h1, h5, li, p, span, sub, text, ul)
+import Effect exposing (Effect)
+import Html exposing (Html, br, code, div, h1, h5, li, p, span, sub, text, ul)
 import Html.Attributes exposing (class)
-import Page
+import Layouts
+import Page exposing (Page)
 import Random
-import Request
+import Route exposing (Route)
 import Shared
-import UI
 import View exposing (View)
 
 
-page : Shared.Model -> Request.With Params -> Page.With Model Msg
+page : Shared.Model -> Route () -> Page Model Msg
 page _ _ =
-    Page.element
+    Page.new
         { init = init
         , update = update
-        , view = view
         , subscriptions = subscriptions
+        , view = view
         }
+        |> Page.withLayout toLayout
+
+
+toLayout : Model -> Layouts.Layout Msg
+toLayout _ =
+    Layouts.Default {}
+
+
+
+-- MODEL
 
 
 type Part
@@ -166,25 +176,37 @@ exercicesFromData data =
     ]
 
 
-generateExercisesData : Cmd Msg
+generateExercisesData : Effect Msg
 generateExercisesData =
-    Random.generate GotExercisesData exercicesData
+    Effect.sendCmd (Random.generate GotExercisesData exercicesData)
 
 
-init : ( Model, Cmd Msg )
-init =
+
+-- INIT
+
+
+init : () -> ( Model, Effect Msg )
+init () =
     ( Nothing, generateExercisesData )
+
+
+
+-- UPDATE
 
 
 type Msg
     = GotExercisesData ExercisesData
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Msg -> Model -> ( Model, Effect Msg )
 update msg _ =
     case msg of
         GotExercisesData exercisesData ->
-            ( Just (exercicesFromData exercisesData), Cmd.none )
+            ( Just (exercicesFromData exercisesData), Effect.none )
+
+
+
+-- SUBSCRIPTIONS
 
 
 subscriptions : Model -> Sub Msg
@@ -192,23 +214,25 @@ subscriptions _ =
     Sub.none
 
 
+
+-- VIEW
+
+
 view : Model -> View Msg
 view model =
     case model of
         Nothing ->
-            { title = "Loading", body = UI.layout [] }
+            { title = "Loading", body = [] }
 
         Just exercises ->
             { title = "Exercices binaire + hexadécimal"
             , body =
-                UI.layout
-                    (List.append
-                        [ h1 [] [ text "Exercices binaire + hexadécimal" ]
-                        , p [] [ text "Passer le doigt ou la souris sur la ligne d'un exercice pour voir la solution" ]
-                        , br [] []
-                        ]
-                        (List.map viewExercise exercises)
-                    )
+                List.append
+                    [ h1 [] [ text "Exercices binaire + hexadécimal" ]
+                    , p [] [ text "Passer le doigt ou la souris sur la ligne d'un exercice pour voir la solution" ]
+                    , br [] []
+                    ]
+                    (List.map viewExercise exercises)
             }
 
 

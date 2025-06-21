@@ -2,8 +2,7 @@
     "type": "application",
     "source-directories": [
         "src",
-        ".elm-spa/defaults",
-        ".elm-spa/generated"
+        ".elm-land/src"
     ],
     "elm-version": "0.19.1",
     "dependencies": {
@@ -16,12 +15,11 @@
             "elm/url": "1.0.0",
             "elm-community/random-extra": "3.2.0",
             "icidasset/elm-binary": "2.1.0",
-            "rtfeldman/elm-hex": "1.0.0",
-            "ryan-haskell/elm-spa": "1.0.0"
+            "rtfeldman/elm-hex": "1.0.0"
         },
         "indirect": {
             "elm/time": "1.0.0",
-            "elm/virtual-dom": "1.0.3",
+            "elm/virtual-dom": "1.0.4",
             "elm-community/list-extra": "8.7.0"
         }
     },
