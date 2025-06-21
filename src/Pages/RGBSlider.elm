@@ -1,21 +1,22 @@
 module Pages.RGBSlider exposing (Model, Msg, page)
 
-import Gen.Params.UnicodeConverter exposing (Params)
-import Html exposing (Html, div, input, label, text)
+import Effect exposing (Effect)
+import Html exposing (Html, div, input, text)
 import Html.Attributes exposing (style, type_, value)
 import Html.Events exposing (onInput)
 import Maybe exposing (withDefault)
-import Page
-import Request
+import Page exposing (Page)
+import Route exposing (Route)
 import Shared
 import View exposing (View)
 
 
-page : Shared.Model -> Request.With Params -> Page.With Model Msg
+page : Shared.Model -> Route () -> Page Model Msg
 page _ _ =
-    Page.sandbox
+    Page.new
         { init = init
         , update = update
+        , subscriptions = subscriptions
         , view = view
         }
 
@@ -31,12 +32,18 @@ type alias Model =
     }
 
 
-init : Model
-init =
-    { red = 0
-    , green = 0
-    , blue = 0
-    }
+
+-- INIT
+
+
+init : () -> ( Model, Effect Msg )
+init () =
+    ( { red = 0
+      , green = 0
+      , blue = 0
+      }
+    , Effect.none
+    )
 
 
 
@@ -49,17 +56,30 @@ type Msg
     | BlueChanged Int
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Effect Msg )
 update msg model =
-    case msg of
-        RedChanged newRed ->
-            { model | red = newRed }
+    let
+        newModel =
+            case msg of
+                RedChanged newRed ->
+                    { model | red = newRed }
 
-        GreenChanged newGreen ->
-            { model | green = newGreen }
+                GreenChanged newGreen ->
+                    { model | green = newGreen }
 
-        BlueChanged newBlue ->
-            { model | blue = newBlue }
+                BlueChanged newBlue ->
+                    { model | blue = newBlue }
+    in
+    ( newModel, Effect.none )
+
+
+
+-- SUBSCRIPTIONS
+
+
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    Sub.none
 
 
 

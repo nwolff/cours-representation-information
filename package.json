@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "elm": "^0.19.1-6",
+    "elm-land": "^0.20.1",
+    "elm-test": "^0.19.1-revision12"
+  },
+  "devDependencies": {
+    "elm-json": "^0.2.13",
+    "elm-review": "^2.10.3"
+  }
+}

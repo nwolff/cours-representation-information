@@ -1,24 +1,28 @@
 module Pages.UnicodeConverter exposing (Model, Msg, page)
 
-import Gen.Params.UnicodeConverter exposing (Params)
+import Effect exposing (Effect)
 import Hex
 import Html exposing (div, h2, input, label, text)
 import Html.Attributes exposing (class, for, id, value)
 import Html.Events exposing (onInput)
-import Page
-import Request
+import Page exposing (Page)
+import Route exposing (Route)
 import Shared
-import UI
 import View exposing (View)
 
 
-page : Shared.Model -> Request.With Params -> Page.With Model Msg
+page : Shared.Model -> Route () -> Page Model Msg
 page _ _ =
-    Page.sandbox
+    Page.new
         { init = init
         , update = update
+        , subscriptions = subscriptions
         , view = view
         }
+
+
+
+-- MODEL
 
 
 type alias Model =
@@ -27,9 +31,17 @@ type alias Model =
     }
 
 
-init : Model
-init =
-    Model "" ""
+
+-- INIT
+
+
+init : () -> ( Model, Effect Msg )
+init () =
+    ( Model "" "", Effect.none )
+
+
+
+-- UPDATE
 
 
 type Msg
@@ -37,7 +49,7 @@ type Msg
     | GotString String
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Effect Msg )
 update msg _ =
     case msg of
         GotHex hex ->
@@ -59,7 +71,7 @@ update msg _ =
                             Err error ->
                                 error
             in
-            Model hex string
+            ( Model hex string, Effect.none )
 
         GotString string ->
             let
@@ -72,26 +84,39 @@ update msg _ =
                         Just ( char, _ ) ->
                             String.toUpper (Hex.toString (Char.toCode char))
             in
-            Model hex string
+            -- UPDATE
+            ( Model hex string, Effect.none )
+
+
+
+-- SUBSCRIPTIONS
+
+
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    Sub.none
+
+
+
+-- VIEW
 
 
 view : Model -> View Msg
 view model =
     { title = "Convertisseur unicode"
     , body =
-        UI.layout
-            [ h2 [] [ text "Convertir un caractère unicode" ]
-            , div [ class "my-3" ]
-                [ label [ for "hex", class "form-label" ]
-                    [ text "Numéro du caractère (en hexadécimal)" ]
-                , div []
-                    [ input [ id "hex", value model.hex, onInput GotHex, class "form-control form-control-lg" ] [] ]
-                ]
-            , div [ class "my-3" ]
-                [ label [ for "string", class "form-label" ]
-                    [ text "Caractère" ]
-                , div []
-                    [ input [ id "string", value model.string, onInput GotString, class "form-control form-control-lg" ] [] ]
-                ]
+        [ h2 [] [ text "Convertir un caractère unicode" ]
+        , div [ class "my-3" ]
+            [ label [ for "hex", class "form-label" ]
+                [ text "Numéro du caractère (en hexadécimal)" ]
+            , div []
+                [ input [ id "hex", value model.hex, onInput GotHex, class "form-control form-control-lg" ] [] ]
             ]
+        , div [ class "my-3" ]
+            [ label [ for "string", class "form-label" ]
+                [ text "Caractère" ]
+            , div []
+                [ input [ id "string", value model.string, onInput GotString, class "form-control form-control-lg" ] [] ]
+            ]
+        ]
     }

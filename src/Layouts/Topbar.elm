@@ -1,9 +1,66 @@
-module UI exposing (layout)
+module Layouts.Topbar exposing (Model, Msg, Props, layout)
 
-import Gen.Route as Route exposing (Route)
+import Effect exposing (Effect)
+import Html exposing (Html)
+import Html.Attributes exposing (class)
+import Layout exposing (Layout)
+import Route exposing (Route)
+import Shared
+import View exposing (View)
+
+
 import Html exposing (Html, a, div, img, nav, text, ul)
 import Html.Attributes exposing (class, height, href, src, style, width)
 
+
+type alias Props =
+    {}
+
+
+layout : Props -> Shared.Model -> Route () -> Layout () Model Msg contentMsg
+layout _ _ _ =
+    Layout.new
+        { init = init
+        , update = update
+        , view = view
+        , subscriptions = subscriptions
+        }
+
+-- MODEL
+
+
+type alias Model =
+    {}
+
+
+init : () -> ( Model, Effect Msg )
+init _ =
+    ( {}
+    , Effect.none
+    )
+
+-- UPDATE
+
+
+type Msg
+    = ReplaceMe
+
+
+update : Msg -> Model -> ( Model, Effect Msg )
+update msg model =
+    case msg of
+        ReplaceMe ->
+            ( model
+            , Effect.none
+            )
+
+
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    Sub.none
+
+
+-- VIEW
 
 {-| How I built the bootstrap navbar
 
@@ -11,8 +68,8 @@ import Html.Attributes exposing (class, height, href, src, style, width)
     - Into https://html-to-elm.com/
 
 -}
-layout : List (Html msg) -> List (Html msg)
-layout children =
+view : { toContentMsg : Msg -> contentMsg, content : View contentMsg, model : Model } -> View contentMsg
+view { toContentMsg, model, content } =
     let
         viewLink : String -> Route -> Html msg
         viewLink label route =
