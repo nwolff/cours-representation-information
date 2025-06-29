@@ -76,14 +76,16 @@ view model =
             , style "width" "100%"
             , style "height" "100vh"
             , style "display" "flex"
-            , style "flex-direction" "column"
+            , style "flex-direction" "row"
             , style "align-items" "center"
+            , style "gap" "50px"
             ]
             [ div
                 [ style "display" "flex"
-                , style "flex-direction" "rows"
+                , style "flex-direction" "column"
                 , style "gap" "30px"
-                , style "padding-left" "20px"
+                , style "padding-left" "30px"
+                , style "padding-right" "30px"
                 , style "padding-top" "20px"
                 , style "border-radius" "8px"
                 , style "box-shadow" "0 4px 8px rgba(0,0,0,0.1)"
@@ -97,6 +99,7 @@ view model =
                 [ style "position" "relative"
                 , style "width" "min(95vw,95vh)"
                 , style "height" "min(95vw,95vh)"
+                , style "align" "center"
                 ]
                 [ circle 40 40 (rgbColor model.red 0 0)
                 , circle 60 40 (rgbColor 0 model.green 0)
@@ -112,10 +115,12 @@ slider label accentColor currentValue msgConstructor =
     div
         [ style "display" "flex"
         , style "flex-direction" "column"
-        , style "align-items" "center"
         , style "accent-color" accentColor
+        , style "padding-left" "50px"
+        , style "gap" "8px"
         ]
-        [ input
+        [ Html.label [] [ text (label ++ " : " ++ String.fromInt currentValue) ]
+        , input
             [ type_ "range"
             , Html.Attributes.min "0"
             , Html.Attributes.max "255"
@@ -123,8 +128,6 @@ slider label accentColor currentValue msgConstructor =
             , onInput (msgConstructor << withDefault 0 << String.toInt)
             ]
             []
-        , Html.label [] [ text label ]
-        , Html.label [] [ text (String.fromInt currentValue) ]
         ]
 
 
