@@ -1,6 +1,6 @@
 module Pages.Home_ exposing (Model, Msg, page)
 
-import Effect exposing (Effect)
+import Effect
 import Html exposing (div, h1, text)
 import Html.Attributes exposing (class)
 import Layouts

@@ -1,6 +1,6 @@
 module Pages.UnicodeConverter exposing (Model, Msg, page)
 
-import Effect exposing (Effect)
+import Effect
 import Hex
 import Html exposing (div, h2, input, label, text)
 import Html.Attributes exposing (class, for, id, value)
