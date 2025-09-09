@@ -1,6 +1,7 @@
-module BinHexUtils exposing (bin, chunk, hex)
+module BinHexUtils exposing (bin, chunk, hex, parseBinaryString, parseDecimalString, parseHexString)
 
 import Binary
+import Hex
 
 
 {-| Builds a binary representation of n
@@ -36,9 +37,59 @@ bin digitCount n =
     bits |> Binary.toIntegers |> List.map String.fromInt |> String.concat |> chunk 4 "'"
 
 
+parseBinaryString : String -> Maybe Int
+parseBinaryString s =
+    let
+        normalized : String
+        normalized =
+            String.replace "'" "" s |> String.replace " " ""
+
+        charToInt : Char -> Int
+        charToInt c =
+            case c of
+                '0' ->
+                    0
+
+                '1' ->
+                    1
+
+                _ ->
+                    -1
+
+        listOfInts : List Int
+        listOfInts =
+            List.map charToInt (String.toList normalized)
+    in
+    if List.isEmpty listOfInts || List.member -1 listOfInts then
+        Nothing
+
+    else
+        Binary.fromIntegers listOfInts |> Binary.toDecimal |> Just
+
+
 hex : Int -> String
 hex n =
     n |> Binary.fromDecimal |> Binary.toHex
+
+
+parseHexString : String -> Maybe Int
+parseHexString s =
+    let
+        normalized : String
+        normalized =
+            String.replace " " "" s |> String.toLower
+    in
+    Result.toMaybe (Hex.fromString normalized)
+
+
+parseDecimalString : String -> Maybe Int
+parseDecimalString s =
+    let
+        normalized : String
+        normalized =
+            String.replace "'" "" s |> String.replace " " ""
+    in
+    String.toInt normalized
 
 
 {-| Groups characters into groups of size n from the right and inserts sep

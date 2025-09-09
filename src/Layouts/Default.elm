@@ -75,20 +75,21 @@ view { toContentMsg, model, content } =
     let
         viewLink : String -> String -> Html msg
         viewLink label route =
-            a [ class "nav-item nav-link", href route ] [ text label ]
+            a [ class "nav-item nav-link mx-2", href route ] [ text label ]
     in
     { title = content.title
     , body =
         [ nav
-            [ class "navbar navbar-expand-sm", style "background-color" "#e3f2fd" ]
+            [ class "navbar navbar-dark bg-dark navbar-expand-sm" ]
             [ div
                 [ class "container-fluid" ]
                 [ ul [ class "navbar-nav" ]
                     [ a
                         [ class "navbar-brand", href "/" ]
                         [ img [ src "assets/brand.png", width 30, height 30 ] [] ]
-                    , viewLink "Exercices binaire + hexadécimal" "binary-exercises"
-                    , viewLink "Convertisseur Unicode" "unicode-converter"
+                    , viewLink "Exercices binaire et hexa" "binary-exercises"
+                    , viewLink "bin-dec-hex" "binary-converter"
+                    , viewLink "Unicode" "unicode-converter"
                     , viewLink "RGB" "r-g-b-slider"
                     ]
                 ]

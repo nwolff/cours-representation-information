@@ -225,11 +225,11 @@ view model =
             { title = "Loading", body = [] }
 
         Just exercises ->
-            { title = "Exercices binaire + hexadécimal"
+            { title = "Exercices binaire et hexa"
             , body =
                 List.append
-                    [ h1 [] [ text "Exercices binaire + hexadécimal" ]
-                    , p [] [ text "Passer le doigt ou la souris sur la ligne d'un exercice pour voir la solution" ]
+                    [ h1 [] [ text "Exercices binaire et hexa" ]
+                    , p [] [ text "Passer le doigt ou la souris sur une question pour voir la solution" ]
                     , br [] []
                     ]
                     (List.map viewExercise exercises)
@@ -238,10 +238,9 @@ view model =
 
 viewExercise : Exercise -> Html Msg
 viewExercise exercise =
-    div []
+    div [ class "exercise" ]
         [ h5 [] [ text exercise.title ]
-        , text exercise.description
-        , br [] []
+        , p [] [ text exercise.description ]
         , ul [ class "list-group list-group-flush w-50" ]
             (List.map viewQuestion exercise.questions)
         , br [] []
