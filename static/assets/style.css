@@ -20,3 +20,19 @@ div.answer {
 div:hover + div.answer {
   display: inline-block;
 }
+
+/* For safari compatibility */
+.color-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  margin-top: -6px; /* center on track */
+  cursor: pointer;
+}
+
+.color-slider::-webkit-slider-runnable-track {
+  height: 6px;
+  background: #ddd;
+  border-radius: 999px;
+}

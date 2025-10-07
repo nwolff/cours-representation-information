@@ -1,7 +1,7 @@
 module Pages.RGBSlider exposing (Model, Msg, page)
 
 import Html exposing (Html, div, input, text)
-import Html.Attributes exposing (style, type_, value)
+import Html.Attributes exposing (style, type_, value, class)
 import Html.Events exposing (onInput)
 import Maybe exposing (withDefault)
 import Page exposing (Page)
@@ -115,13 +115,14 @@ slider label accentColor currentValue msgConstructor =
     div
         [ style "display" "flex"
         , style "flex-direction" "column"
-        , style "accent-color" accentColor
         , style "padding-left" "50px"
         , style "gap" "8px"
         ]
         [ Html.label [] [ text (label ++ " : " ++ String.fromInt currentValue) ]
         , input
             [ type_ "range"
+            , class "color-slider"
+            , style "accent-color" accentColor
             , Html.Attributes.min "0"
             , Html.Attributes.max "255"
             , value (String.fromInt currentValue)
