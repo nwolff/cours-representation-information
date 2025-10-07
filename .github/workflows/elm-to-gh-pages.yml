@@ -42,6 +42,10 @@ jobs:
       - name: Build elm land app
         run: npx elm-land build
 
+      # https://stackoverflow.com/questions/76115927/page-not-found-react-vite-app-not-routing-correctly-on-github-pages
+      - name: Copy index.html to 404.html
+        run: cp dist/index.html dist/404.html
+
       # Tests need to come after the build, otherwise
       # it complains about missing .elm-spa directories
       - name: Run tests
