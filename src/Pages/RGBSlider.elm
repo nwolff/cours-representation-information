@@ -1,7 +1,7 @@
 module Pages.RGBSlider exposing (Model, Msg, page)
 
 import Html exposing (Html, div, input, text)
-import Html.Attributes exposing (style, type_, value, class)
+import Html.Attributes exposing (class, style, type_, value)
 import Html.Events exposing (onInput)
 import Maybe exposing (withDefault)
 import Page exposing (Page)

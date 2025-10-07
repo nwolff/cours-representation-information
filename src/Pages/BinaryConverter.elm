@@ -1,13 +1,12 @@
 module Pages.BinaryConverter exposing (Model, Msg, page)
 
-import BinHexUtils exposing (bin, hex, parseBinaryString, parseDecimalString, parseHexString)
+import BinHexUtils
 import Effect
 import Html exposing (div, h2, input, label, text)
 import Html.Attributes exposing (class, for, id, value)
 import Html.Events exposing (onInput)
 import Layouts
 import Page exposing (Page)
-import Result exposing (toMaybe)
 import Route exposing (Route)
 import Shared
 import View exposing (View)
