@@ -90,7 +90,7 @@ view { toContentMsg, model, content } =
                     , viewLink "Exercices binaire et hexa" "binary-exercises"
                     , viewLink "bin-dec-hex" "binary-converter"
                     , viewLink "Unicode" "unicode-converter"
-                    , viewLink "RGB" "r-g-b-slider"
+                    , viewLink "RVB" "r-g-b-slider"
                     ]
                 ]
             ]

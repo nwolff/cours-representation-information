@@ -69,7 +69,7 @@ update msg model =
 
 view : Model -> View Msg
 view model =
-    { title = "RGB Slider"
+    { title = "Synthèse additive RVB"
     , body =
         [ div
             [ style "background-color" "black"
