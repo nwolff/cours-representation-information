@@ -61,7 +61,7 @@ type alias Model =
 exercicesFromData : ExercisesData -> List Exercise
 exercicesFromData data =
     [ Exercise
-        "1. Convertir les nombres décimaux vers le binaire"
+        "1. Convertir ces nombres décimaux vers le binaire"
         "Utiliser la grille de conversion décimal-binaire"
         (data.dec2bin
             |> List.map
@@ -71,7 +71,7 @@ exercicesFromData data =
                         [ B (bin 8 n) ]
                 )
         )
-    , Exercise "2. Convertir les nombres binaires vers le décimal"
+    , Exercise "2. Convertir ces nombres binaires positifs vers le décimal"
         "Utiliser la grille de conversion décimal-binaire"
         (data.bin2dec
             |> List.map
@@ -81,7 +81,7 @@ exercicesFromData data =
                         [ S (String.fromInt n) ]
                 )
         )
-    , Exercise "3. Effectuer les additions binaires en colonnes"
+    , Exercise "3. Effectuer ces additions binaires en colonnes"
         "Vérifier les calculs en passant par le décimal"
         (data.addition
             |> List.map
@@ -92,7 +92,7 @@ exercicesFromData data =
                 )
         )
     , Exercise
-        "4. Convertir les nombres décimaux négatifs vers le binaire"
+        "4. Convertir ces nombres décimaux négatifs vers le binaire"
         "Representez leur complément à deux sur 8 bits"
         (data.dec2binNeg
             |> List.map
@@ -103,7 +103,7 @@ exercicesFromData data =
                 )
         )
     , Exercise
-        "5. Convertir les nombres binaires négatifs en complément à deux vers le décimal"
+        "5. Convertir ces nombres binaires négatifs en complément à deux vers le décimal"
         ""
         (data.bin2decNeg
             |> List.map
@@ -113,7 +113,7 @@ exercicesFromData data =
                         [ D n ]
                 )
         )
-    , Exercise "6. Effectuer les additions binaires de nombres relatifs en complément à 2 sur 8 bits"
+    , Exercise "6. Effectuer ces additions binaires de nombres relatifs en complément à 2 sur 8 bits"
         "Vérifier les calculs en passant par le décimal"
         (data.additionRelative
             |> List.map
@@ -123,7 +123,7 @@ exercicesFromData data =
                         [ B (bin 8 (a + b)), N, S "Vérification: ", D a, S "+", D b, S "=", D (a + b) ]
                 )
         )
-    , Exercise "7. Convertir les nombres décimaux vers l'hexadécimal"
+    , Exercise "7. Convertir ces nombres décimaux vers l'hexadécimal"
         ""
         (data.dec2hex
             |> List.map
@@ -133,7 +133,7 @@ exercicesFromData data =
                         [ H (hex n) ]
                 )
         )
-    , Exercise "8. Convertir les nombres hexadécimaux vers le décimal"
+    , Exercise "8. Convertir ces nombres hexadécimaux vers le décimal"
         ""
         (data.hex2dec
             |> List.map
