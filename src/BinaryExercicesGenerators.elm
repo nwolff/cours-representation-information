@@ -64,31 +64,6 @@ additionRelative =
         [ Random.pair m (neg m), Random.pair m (neg m), Random.pair (neg s) (neg s) ]
 
 
-multiplication : Random.Generator (List ( Int, Int ))
-multiplication =
-    Random.Extra.sequence
-        [ Random.pair s xs, Random.pair m xs, Random.pair xxs xl ]
-
-
-zip : Random.Generator (List a) -> Random.Generator (List b) -> Random.Generator (List ( a, b ))
-zip gena genb =
-    Random.map2 (List.map2 Tuple.pair) gena genb
-
-
-shiftMultiplication : Random.Generator (List ( Int, Int ))
-shiftMultiplication =
-    zip
-        (Random.constant [ 7, 127, 60 ])
-        (Random.List.shuffle [ 2, 4, 8 ])
-
-
-shiftDivision : Random.Generator (List ( Int, Int ))
-shiftDivision =
-    zip
-        (Random.constant [ 5, 85, 240 ])
-        (Random.List.shuffle [ 2, 4, 8, 16, 32 ])
-
-
 type alias ExercisesData =
     { dec2bin : List Int
     , bin2dec : List Int
@@ -96,9 +71,6 @@ type alias ExercisesData =
     , dec2binNeg : List Int
     , bin2decNeg : List Int
     , additionRelative : List ( Int, Int )
-    , shiftMultiplication : List ( Int, Int )
-    , multiplication : List ( Int, Int )
-    , shiftDivision : List ( Int, Int )
     , dec2hex : List Int
     , hex2dec : List Int
     }
@@ -113,8 +85,5 @@ exercicesData =
         |> andMap negativeConversionNumbers
         |> andMap negativeConversionNumbers
         |> andMap additionRelative
-        |> andMap shiftMultiplication
-        |> andMap multiplication
-        |> andMap shiftDivision
         |> andMap conversionNumbers
         |> andMap conversionNumbers

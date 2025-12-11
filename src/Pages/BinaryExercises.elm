@@ -123,37 +123,7 @@ exercicesFromData data =
                         [ B (bin 8 (a + b)), N, S "Vérification: ", D a, S "+", D b, S "=", D (a + b) ]
                 )
         )
-    , Exercise "7. Effectuer les multiplications binaires par décalage de bits"
-        "Vérifier les calculs en passant par le décimal"
-        (data.shiftMultiplication
-            |> List.map
-                (\( a, b ) ->
-                    Question
-                        [ B (bin 8 a), S "*", D b ]
-                        [ B (bin 8 (a * b)), N, S "Vérification: ", D a, S "*", D b, S "=", D (a * b) ]
-                )
-        )
-    , Exercise "8. Effectuer les multiplications binaires en colonnes"
-        "Vérifier les calculs en passant par le décimal"
-        (data.multiplication
-            |> List.map
-                (\( a, b ) ->
-                    Question
-                        [ B (bin 8 a), S "*", B (bin 8 b) ]
-                        [ B (bin 8 (a * b)), N, S "Vérification: ", D a, S "*", D b, S "=", D (a * b) ]
-                )
-        )
-    , Exercise "9. Effectuer les divisions binaires entières par décalage de bits"
-        "Vérifier les calculs en passant par le décimal"
-        (data.shiftDivision
-            |> List.map
-                (\( a, b ) ->
-                    Question
-                        [ B (bin 8 a), S "/", D b ]
-                        [ B (bin 8 (a // b)), N, S "Vérification: ", D a, S "/", D b, S "=", D (a // b), S "(Reste", D (modBy b a), S ")" ]
-                )
-        )
-    , Exercise "A. Convertir les nombres décimaux vers l'hexadécimal"
+    , Exercise "7. Convertir les nombres décimaux vers l'hexadécimal"
         ""
         (data.dec2hex
             |> List.map
@@ -163,7 +133,7 @@ exercicesFromData data =
                         [ H (hex n) ]
                 )
         )
-    , Exercise "B. Convertir les nombres hexadécimaux vers le décimal"
+    , Exercise "8. Convertir les nombres hexadécimaux vers le décimal"
         ""
         (data.hex2dec
             |> List.map
