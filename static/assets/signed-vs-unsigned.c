@@ -19,29 +19,27 @@ char *toBinary(char num)
 
 int main()
 {
-    unsigned char x = 127;
-    char y = 127;
+    unsigned char u;
+    u = 127;
+    printf("u \t %d \t\t %s \n", u, toBinary(u));
+    u = u + 1;
+    printf("u + 1 \t %d \t\t %s \n", u, toBinary(u));
+    u = 0;
+    printf("u \t %d \t\t %s \n", u, toBinary(u));
+    u = u - 1;
+    printf("u - 1 \t %d \t\t %s \n", u, toBinary(u));
+    printf("\n");
 
-    printf("x: \t %d \t\t %s \n", x, toBinary(x));
-    printf("y: \t %d \t\t %s \n", x, toBinary(y));
-
-    x = x + 1;
-    y = y + 1;
-
-    printf("x + 1: \t %d \t\t %s \n", x, toBinary(x));
-    printf("y + 1: \t %d \t\t %s \n", y, toBinary(y));
-
-    printf("\n\n");
-
-    x = 0;
-    y = 0;
-    printf("x: \t %d \t\t %s \n", x, toBinary(x));
-    printf("y: \t %d \t\t %s \n", y, toBinary(y));
-
-    x = x - 1;
-    y = y - 1;
-    printf("x - 1: \t %d \t\t %s \n", x, toBinary(x));
-    printf("y - 1: \t %d \t\t %s \n", y, toBinary(y));
+    char s;
+    s = 127;
+    printf("s \t %d \t\t %s \n", s, toBinary(s));
+    s = s + 1;
+    printf("s + 1 \t %d \t\t %s \n", s, toBinary(s));
+    s = 0;
+    printf("s \t %d \t\t %s \n", s, toBinary(s));
+    s = s - 1;
+    printf("s - 1 \t %d \t\t %s \n", s, toBinary(s));
+    printf("\n");
 
     return 0;
 }
