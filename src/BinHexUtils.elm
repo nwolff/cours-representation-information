@@ -1,40 +1,52 @@
-module BinHexUtils exposing (bin, chunk, hex, parseBinaryString, parseDecimalString, parseHexString)
+module BinHexUtils exposing (bin, binRel, chunk, hex, hexRel, parseBinaryString, parseDecimalString, parseHexString)
 
 import Binary
 import Hex
 
 
-{-| Builds a binary representation of n
-The digitCount is used when n is negative to build a two's complement representation,
-if n is positive then digitCount is ignored
+prettyPrint : Binary.Bits -> String
+prettyPrint b =
+    b |> Binary.toIntegers |> List.map String.fromInt |> String.concat |> chunk 4 "'"
 
-    >>> bin 8 3
-    "11"
-    >>> bin 8 255
+
+{-| Builds a binary representation of n
+-}
+bin : Int -> String
+bin n =
+    Binary.fromDecimal n |> prettyPrint
+
+
+{-| Builds a binary representation of n
+The numBits is used when n is negative to build a two's complement representation,
+if n is positive then numBits is ignored
+
+    >>> binRel 8 10
+    "1010"
+    >>> binRel 8 255
     "1111'1111"
-    >>> bin 8 -9
+    >>> binRel 8 -9
     "1111'0111"
-    >>> bin 16 -9
+    >>> binRel 16 -9
     "1111'1111'1111'0111"
 
 -}
-bin : Int -> Int -> String
-bin digitCount n =
-    let
-        bits : Binary.Bits
-        bits =
-            if n >= 0 then
-                Binary.fromDecimal n
+binRelBits : Int -> Int -> Binary.Bits
+binRelBits numBits n =
+    if n >= 0 then
+        Binary.fromDecimal n
 
-            else
-                n
-                    |> abs
-                    |> (\x -> x - 1)
-                    |> Binary.fromDecimal
-                    |> Binary.ensureSize digitCount
-                    |> Binary.not
-    in
-    bits |> Binary.toIntegers |> List.map String.fromInt |> String.concat |> chunk 4 "'"
+    else
+        n
+            |> abs
+            |> (\x -> x - 1)
+            |> Binary.fromDecimal
+            |> Binary.ensureSize numBits
+            |> Binary.not
+
+
+binRel : Int -> Int -> String
+binRel numBits n =
+    binRelBits numBits n |> prettyPrint
 
 
 parseBinaryString : String -> Maybe Int
@@ -58,7 +70,7 @@ parseBinaryString s =
 
         listOfInts : List Int
         listOfInts =
-            List.map charToInt (String.toList normalized)
+            String.toList normalized |> List.map charToInt
     in
     if List.isEmpty listOfInts || List.member -1 listOfInts then
         Nothing
@@ -70,6 +82,29 @@ parseBinaryString s =
 hex : Int -> String
 hex n =
     n |> Binary.fromDecimal |> Binary.toHex
+
+
+{-| Builds a binary representation of n
+The numBits is used when n is negative to build a two's complement representation,
+if n is positive then numBits is ignored
+
+    >>> hexRel 8 10
+    "A"
+    >>> hexRel 8 127
+    "7F"
+    >>> hexRel 8 -128
+    "80"
+    >>> hexRel 8 -1
+    "FF"
+    >>> hexRel 8 -9
+    "F7"
+    >>> hexRel 16 -9
+    "FFF7"
+
+-}
+hexRel : Int -> Int -> String
+hexRel numBits n =
+    binRelBits numBits n |> Binary.toHex
 
 
 parseHexString : String -> Maybe Int

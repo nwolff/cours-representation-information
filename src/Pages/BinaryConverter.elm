@@ -2,7 +2,7 @@ module Pages.BinaryConverter exposing (Model, Msg, page)
 
 import BinHexUtils
 import Effect
-import Html exposing (div, h2, input, label, text)
+import Html exposing (br, div, h2, input, label, p, sup, text)
 import Html.Attributes exposing (class, for, id, value)
 import Html.Events exposing (onInput)
 import Layouts
@@ -87,7 +87,7 @@ update msg model =
                         model
 
                     Just number ->
-                        Model (BinHexUtils.bin 0 number) (String.fromInt number) (BinHexUtils.hex number)
+                        Model (BinHexUtils.bin number) (String.fromInt number) (BinHexUtils.hex number)
 
 
 
@@ -99,6 +99,8 @@ view model =
     { title = "Convertisseur binaire-décimal-hexadécimal"
     , body =
         [ h2 [] [ text "Convertir des nombres" ]
+        , p [] [ text "Fonctionne pour les nombres positifs jusqu'à 2", sup [] [ text "32" ], text " - 1" ]
+        , br [] []
         , div [ class "my-3" ]
             [ label [ for "bin", class "form-label" ]
                 [ text "Binaire" ]

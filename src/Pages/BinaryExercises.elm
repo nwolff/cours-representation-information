@@ -1,6 +1,6 @@
 module Pages.BinaryExercises exposing (Exercise, Model, Msg(..), Part, Question, page)
 
-import BinHexUtils exposing (bin, hex)
+import BinHexUtils exposing (bin, binRel, hex, hexRel)
 import BinaryExercicesGenerators exposing (ExercisesData, exercicesData)
 import Effect exposing (Effect)
 import Html exposing (Html, br, code, div, h1, h5, li, p, span, sub, text, ul)
@@ -68,7 +68,7 @@ exercicesFromData data =
                 (\n ->
                     Question
                         [ D n ]
-                        [ B (bin 8 n) ]
+                        [ B (bin n) ]
                 )
         )
     , Exercise "2. Convertir ces nombres binaires positifs vers le décimal"
@@ -77,8 +77,8 @@ exercicesFromData data =
             |> List.map
                 (\n ->
                     Question
-                        [ B (bin 8 n) ]
-                        [ S (String.fromInt n) ]
+                        [ B (bin n) ]
+                        [ D n ]
                 )
         )
     , Exercise "3. Effectuer ces additions binaires en colonnes"
@@ -87,29 +87,29 @@ exercicesFromData data =
             |> List.map
                 (\( a, b ) ->
                     Question
-                        [ B (bin 8 a), S "+", B (bin 8 b) ]
-                        [ B (bin 8 (a + b)), N, S "Vérification: ", D a, S "+", D b, S "=", D (a + b) ]
+                        [ B (bin a), S "+", B (bin b) ]
+                        [ B (bin (a + b)), N, S "Vérification: ", D a, S "+", D b, S "=", D (a + b) ]
                 )
         )
     , Exercise
-        "4. Convertir ces nombres décimaux négatifs vers le binaire"
+        "4. Convertir ces nombres décimaux relatifs vers le binaire"
         "Representez leur complément à deux sur 8 bits"
-        (data.dec2binNeg
+        (data.dec2binRelative
             |> List.map
                 (\n ->
                     Question
                         [ D n ]
-                        [ B (bin 8 n) ]
+                        [ B (binRel 8 n) ]
                 )
         )
     , Exercise
-        "5. Convertir ces nombres binaires négatifs en complément à deux vers le décimal"
+        "5. Convertir ces nombres binaires relatifs en complément à deux vers le décimal"
         ""
-        (data.bin2decNeg
+        (data.bin2decRelative
             |> List.map
                 (\n ->
                     Question
-                        [ B (bin 8 n) ]
+                        [ B (binRel 8 n) ]
                         [ D n ]
                 )
         )
@@ -119,11 +119,31 @@ exercicesFromData data =
             |> List.map
                 (\( a, b ) ->
                     Question
-                        [ B (bin 8 a), S "+", B (bin 8 b) ]
-                        [ B (bin 8 (a + b)), N, S "Vérification: ", D a, S "+", D b, S "=", D (a + b) ]
+                        [ B (binRel 8 a), S "+", B (binRel 8 b) ]
+                        [ B (binRel 8 (a + b)), N, S "Vérification: ", D a, S "+", D b, S "=", D (a + b) ]
                 )
         )
-    , Exercise "7. Convertir ces nombres décimaux vers l'hexadécimal"
+    , Exercise "7. Convertir ces nombres binaires vers l'hexadécimal"
+        ""
+        (data.bin2hex
+            |> List.map
+                (\n ->
+                    Question
+                        [ B (bin n) ]
+                        [ H (hex n) ]
+                )
+        )
+    , Exercise "8. Convertir ces nombres hexadécimaux vers le binaire"
+        ""
+        (data.hex2bin
+            |> List.map
+                (\n ->
+                    Question
+                        [ H (hex n) ]
+                        [ B (bin n) ]
+                )
+        )
+    , Exercise "9. Convertir ces nombres binaires vers l'hexadécimal"
         ""
         (data.dec2hex
             |> List.map
@@ -133,13 +153,23 @@ exercicesFromData data =
                         [ H (hex n) ]
                 )
         )
-    , Exercise "8. Convertir ces nombres hexadécimaux vers le décimal"
+    , Exercise "A. Convertir ces nombres hexadécimaux vers le décimal"
         ""
         (data.hex2dec
             |> List.map
                 (\n ->
                     Question
                         [ H (hex n) ]
+                        [ D n ]
+                )
+        )
+    , Exercise "B. Convertir ces nombres hexadécimaux relatifs sur 8 bits vers le décimal"
+        ""
+        (data.hex2decRelative
+            |> List.map
+                (\n ->
+                    Question
+                        [ H (hexRel 8 n) ]
                         [ D n ]
                 )
         )
@@ -195,10 +225,10 @@ view model =
             { title = "Loading", body = [] }
 
         Just exercises ->
-            { title = "Exercices binaire et hexa"
+            { title = "Exercices binaire et hexadécimal"
             , body =
                 List.append
-                    [ h1 [] [ text "Exercices binaire et hexa" ]
+                    [ h1 [] [ text "Exercices binaire et hexadécimal" ]
                     , p [] [ text "Passer le doigt ou la souris sur une question pour voir la solution" ]
                     , br [] []
                     ]

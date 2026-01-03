@@ -2,12 +2,6 @@ module BinaryExercicesGenerators exposing (ExercisesData, exercicesData)
 
 import Random
 import Random.Extra exposing (andMap)
-import Random.List
-
-
-xxs : Random.Generator Int
-xxs =
-    Random.int 3 4
 
 
 xs : Random.Generator Int
@@ -35,6 +29,11 @@ xl =
     Random.int 256 511
 
 
+xxl : Random.Generator Int
+xxl =
+    Random.int (2 ^ 22) (2 ^ 23 - 1)
+
+
 neg : Random.Generator number -> Random.Generator number
 neg gen =
     Random.map negate gen
@@ -46,10 +45,16 @@ conversionNumbers =
         [ s, l, xl ]
 
 
-negativeConversionNumbers : Random.Generator (List Int)
-negativeConversionNumbers =
+binhexConversionNumbers : Random.Generator (List Int)
+binhexConversionNumbers =
     Random.Extra.sequence
-        [ neg xs, neg s, neg m ]
+        [ l, xl, xxl ]
+
+
+relativeConversionNumbers : Random.Generator (List Int)
+relativeConversionNumbers =
+    Random.Extra.sequence
+        [ neg xs, m, neg m ]
 
 
 addition : Random.Generator (List ( Int, Int ))
@@ -68,11 +73,14 @@ type alias ExercisesData =
     { dec2bin : List Int
     , bin2dec : List Int
     , addition : List ( Int, Int )
-    , dec2binNeg : List Int
-    , bin2decNeg : List Int
+    , dec2binRelative : List Int
+    , bin2decRelative : List Int
     , additionRelative : List ( Int, Int )
+    , bin2hex : List Int
+    , hex2bin : List Int
     , dec2hex : List Int
     , hex2dec : List Int
+    , hex2decRelative : List Int
     }
 
 
@@ -82,8 +90,11 @@ exercicesData =
         conversionNumbers
         |> andMap conversionNumbers
         |> andMap addition
-        |> andMap negativeConversionNumbers
-        |> andMap negativeConversionNumbers
+        |> andMap relativeConversionNumbers
+        |> andMap relativeConversionNumbers
         |> andMap additionRelative
+        |> andMap binhexConversionNumbers
+        |> andMap binhexConversionNumbers
         |> andMap conversionNumbers
         |> andMap conversionNumbers
+        |> andMap relativeConversionNumbers

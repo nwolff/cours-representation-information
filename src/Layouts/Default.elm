@@ -87,7 +87,7 @@ view { toContentMsg, model, content } =
                     [ a
                         [ class "navbar-brand", href "/" ]
                         [ img [ src "assets/brand.png", width 30, height 30 ] [] ]
-                    , viewLink "Exercices binaire et hexa" "binary-exercises"
+                    , viewLink "Exercices binaire et hexadécimal" "binary-exercises"
                     , viewLink "bin-dec-hex" "binary-converter"
                     , viewLink "Unicode" "unicode-converter"
                     , viewLink "RVB" "r-g-b-slider"
