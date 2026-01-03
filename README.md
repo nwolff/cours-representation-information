@@ -16,7 +16,7 @@ Usage statistics collected with umami.js
 
 ## Formatting
 
-    npx elm-format --yes src
+    npx elm-format --yes src tests
 
 ## Reviewing
 
