@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-// This leaks buffers and is unsafe
+// This leaks buffers AND is unsafe
 char *toBinary(char num)
 {
     char *buffer = malloc(50);

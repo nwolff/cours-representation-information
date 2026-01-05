@@ -1,0 +1,16 @@
+# npm
+package-lock.json
+node_modules/
+
+# Elm
+elm-stuff/
+elm.js
+repl-temp-*
+
+# Elm-land
+.elm-land/
+dist
+
+# Our build setup
+target/
+
