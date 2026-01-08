@@ -48,7 +48,7 @@ conversionNumbers =
 binhexConversionNumbers : Random.Generator (List Int)
 binhexConversionNumbers =
     Random.Extra.sequence
-        [ l, xl, xxl ]
+        [ s, l, xl ]
 
 
 relativeConversionNumbers : Random.Generator (List Int)

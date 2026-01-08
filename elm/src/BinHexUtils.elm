@@ -18,10 +18,10 @@ bin n =
 
 {-| Builds a binary representation of n
 The numBits is used when n is negative to build a two's complement representation,
-if n is positive then numBits is ignored
+if n is positive then 0's are added to the left of the number to make sure it is numBits
 
     >>> binRel 8 10
-    "1010"
+    "0000'1010"
     >>> binRel 8 255
     "1111'1111"
     >>> binRel 8 -9
@@ -33,7 +33,7 @@ if n is positive then numBits is ignored
 binRelBits : Int -> Int -> Binary.Bits
 binRelBits numBits n =
     if n >= 0 then
-        Binary.fromDecimal n
+        Binary.fromDecimal n |> Binary.ensureSize numBits
 
     else
         n
@@ -89,7 +89,7 @@ The numBits is used when n is negative to build a two's complement representatio
 if n is positive then numBits is ignored
 
     >>> hexRel 8 10
-    "A"
+    "0A"
     >>> hexRel 8 127
     "7F"
     >>> hexRel 8 -128

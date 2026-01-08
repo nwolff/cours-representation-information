@@ -40,7 +40,7 @@ binRelTests : Test
 binRelTests =
     describe "Bin Rel"
         [ test "convert 10 on 8 bits"
-            (\_ -> Expect.equal "1010" (binRel 8 10))
+            (\_ -> Expect.equal "0000'1010" (binRel 8 10))
         , test "convert -9 on 8 bits"
             (\_ -> Expect.equal "1111'0111" (binRel 8 -9))
         , test "convert -1 on 8 bits"
@@ -56,7 +56,7 @@ hexRelTests : Test
 hexRelTests =
     describe "Hex Rel"
         [ test "convert 10 on 8 bits"
-            (\_ -> Expect.equal "A" (hexRel 8 10))
+            (\_ -> Expect.equal "0A" (hexRel 8 10))
         , test "convert 127 on 8 bits"
             (\_ -> Expect.equal "7F" (hexRel 8 127))
         , test "convert -128 on 8 bits"
