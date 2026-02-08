@@ -29,10 +29,11 @@ xl =
     Random.int 256 511
 
 
+{-
 xxl : Random.Generator Int
 xxl =
     Random.int (2 ^ 22) (2 ^ 23 - 1)
-
+-}
 
 neg : Random.Generator number -> Random.Generator number
 neg gen =

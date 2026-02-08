@@ -19,22 +19,25 @@ char *toBinary(char num)
 
 int main()
 {
-    unsigned char u;
+    unsigned char u; // Un nombre positif sur 8 bits
     u = 127;
     printf("u \t %d \t\t %s \n", u, toBinary(u));
     u = u + 1;
     printf("u + 1 \t %d \t\t %s \n", u, toBinary(u));
+    printf("\n");
     u = 0;
     printf("u \t %d \t\t %s \n", u, toBinary(u));
     u = u - 1;
     printf("u - 1 \t %d \t\t %s \n", u, toBinary(u));
     printf("\n");
+    printf("\n");
 
-    char s;
+    char s; // Un nombre relatif sur 8 bits
     s = 127;
     printf("s \t %d \t\t %s \n", s, toBinary(s));
     s = s + 1;
     printf("s + 1 \t %d \t\t %s \n", s, toBinary(s));
+    printf("\n");
     s = 0;
     printf("s \t %d \t\t %s \n", s, toBinary(s));
     s = s - 1;
