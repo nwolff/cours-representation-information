@@ -1,5 +1,9 @@
 # IDEs
 .vscode/
+.idea/
 
 # mac
 .DS_Store
+
+# derived files
+build/
