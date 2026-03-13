@@ -81,7 +81,7 @@ exercicesFromData data =
                         [ D n ]
                 )
         )
-    , Exercise "3. Effectuer ces additions binaires en colonnes"
+    , Exercise "3. Effectuer ces additions de nombres positifs en binaire"
         "Vérifier les calculs en passant par le décimal"
         (data.addition
             |> List.map
@@ -93,7 +93,7 @@ exercicesFromData data =
         )
     , Exercise
         "4. Convertir ces nombres décimaux relatifs vers le binaire"
-        "Representez leur complément à deux sur 8 bits"
+        "En complément à deux sur 8 bits"
         (data.dec2binRelative
             |> List.map
                 (\n ->

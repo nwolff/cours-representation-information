@@ -15,8 +15,7 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# Cancel current deployment when a new push occurs
+# Only one deployment runs at a time. New pushes queue rather than cancelling the current deploy.
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -53,9 +52,6 @@ jobs:
       # it complains about missing .elm-spa directories
       - name: Run tests
         run: npx elm-test
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4

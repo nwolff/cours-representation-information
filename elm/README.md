@@ -6,6 +6,17 @@ Usage statistics collected with umami.js
 
 ---
 
+## Basic tooling
+
+Requires an installation of nodejs
+
+On a mac without homebrew or admin permissions, one can use nvm:
+https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating
+
+Then:
+
+    nvm install 25
+
 ## Start a live dev server
 
     npx elm-land server
