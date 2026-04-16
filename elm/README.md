@@ -35,7 +35,7 @@ Gets a bit confused by elm-land (which generates code that review cannot see), b
 
     npx elm-review --template jfmengels/elm-review-config/application src tests
 
-## Building for production
+## Building for production (builds into /dist)
 
     npx elm-land build
 

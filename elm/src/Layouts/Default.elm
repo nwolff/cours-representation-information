@@ -2,7 +2,7 @@ module Layouts.Default exposing (Model, Msg, Props, layout)
 
 import Effect exposing (Effect)
 import Html exposing (Html, a, div, img, nav, text, ul)
-import Html.Attributes exposing (class, height, href, src, style, width)
+import Html.Attributes exposing (class, height, href, src, style, target, title, width)
 import Layout exposing (Layout)
 import Route exposing (Route)
 import Shared
@@ -92,6 +92,13 @@ view { toContentMsg, model, content } =
                     , viewLink "Unicode" "unicode-converter"
                     , viewLink "RVB" "r-g-b-slider"
                     ]
+                , a
+                    [ class "nav-link ms-auto text-secondary"
+                    , href "about.html"
+                    , target "_blank"
+                    , title "À propos"
+                    ]
+                    [ text "ⓘ" ]
                 ]
             ]
         , div [ class "container pt-4" ]
