@@ -49,12 +49,30 @@ binRel numBits n =
     binRelBits numBits n |> prettyPrint
 
 
+{-| Removes digit group separators, so that "1'422" or "111 0101" can be parsed.
+Pasted text often contains typographic apostrophes or non-breaking spaces
+instead of plain ones, so those are removed too.
+
+    >>> removeSeparators "1’422"
+    "1422"
+
+-}
+removeSeparators : String -> String
+removeSeparators =
+    String.filter (\c -> not (List.member c separators))
+
+
+separators : List Char
+separators =
+    [ '\'', '’', '‘', 'ʼ', '′', '`', '´', ' ', '\t', '\u{00A0}', '\u{2009}', '\u{202F}' ]
+
+
 parseBinaryString : String -> Maybe Int
 parseBinaryString s =
     let
         normalized : String
         normalized =
-            String.replace "'" "" s |> String.replace " " ""
+            removeSeparators s
 
         charToInt : Char -> Int
         charToInt c =
@@ -112,7 +130,7 @@ parseHexString s =
     let
         normalized : String
         normalized =
-            String.replace " " "" s |> String.toLower
+            removeSeparators s |> String.toLower
     in
     Result.toMaybe (Hex.fromString normalized)
 
@@ -122,7 +140,7 @@ parseDecimalString s =
     let
         normalized : String
         normalized =
-            String.replace "'" "" s |> String.replace " " ""
+            removeSeparators s
     in
     String.toInt normalized
 

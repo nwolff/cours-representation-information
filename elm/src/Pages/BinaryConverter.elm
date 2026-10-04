@@ -87,7 +87,7 @@ update msg model =
                         model
 
                     Just number ->
-                        Model (BinHexUtils.bin number) (String.fromInt number) (BinHexUtils.hex number)
+                        Model (BinHexUtils.bin number) (String.fromInt number |> BinHexUtils.chunk 3 "'") (BinHexUtils.hex number |> BinHexUtils.chunk 2 "'")
 
 
 
